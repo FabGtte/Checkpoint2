@@ -23,7 +23,7 @@ namespace Checkpoint2
         internal static IEnumerable<Student> SelectAllStudent()
         {
             SqlCommand command = _connection.CreateCommand();
-            command.CommandText = "SELECT * FROM Student";
+            command.CommandText = "SELECT lastname, AVG(grade) AS ExamAverage FROM Exam INNER JOIN Student ON FK_Exam = ExamId GROUP BY lastname, grade";
             SqlDataReader reader = command.ExecuteReader();
             List<Student> students = new List<Student>();
             while (reader.Read()) // Tant qu'il y a de la donnée je lis un enregistrement
@@ -33,7 +33,8 @@ namespace Checkpoint2
                     StudentId = reader.GetInt32(0),
                     firstname = reader.GetString(1),
                     lastname = reader.GetString(2),
-                    FK_Exam = reader.GetInt32(3)
+                    FK_Exam = reader.GetInt32(3),
+                    Average = reader.GetFloat(4)
                 };
                 students.Add(student);
             }

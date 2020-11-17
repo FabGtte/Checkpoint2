@@ -10,6 +10,7 @@ namespace Checkpoint2
         public string firstname { get; set; }
         public string lastname { get; set; }
         public int FK_Exam { get; set; }
+        public float Average { get; set; }
 
         public override string ToString()
         {
